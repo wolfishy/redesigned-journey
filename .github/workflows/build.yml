@@ -1,0 +1,32 @@
+name: Build C++ Project
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow when code is pushed to the 'main' branch
+  pull_request:
+    branches:
+      - main # Trigger the workflow when a pull request is made to 'main'
+
+jobs:
+  build:
+    runs-on: windows-latest # Run on a Windows machine
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up MSBuild and Visual Studio
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      # Step 3: Build the project using MSBuild (assuming you're using a .vcxproj file)
+      - name: Build C++ Project
+        run: |
+          msbuild GearInjector.vcxproj /p:Configuration=Release
+
+      # Optional: Step to run tests after building (if applicable)
+      # - name: Run tests
+      #   run: |
+      #     <command to run your tests>
